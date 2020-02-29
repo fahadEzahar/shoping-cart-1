@@ -25,11 +25,11 @@
 
                      <div class="col-md-5 center-item">
                         <div class="input-group number-spinner">
-                           <button class="btn btn-default"><i class="fas fa-minus"></i></button>
-                           <input type="text" class="form-control text-center" value="1">
-                           <button class="btn btn-default"><i class="fas fa-plus"></i></button>
+                           <button class="btn btn-default" id="remove-product"><i class="fas fa-minus"></i></button>
+                           <input type="number" id="first-product-quantity" class="form-control text-center" value="1">
+                           <button class="btn btn-default" id="add-product"><i class="fas fa-plus"></i></button>
                         </div>
-                        <h5>$1219</h5>
+                        <h5>$ <span id="product1-price">1219</span> </h5>
                         <img src="images/remove.png" alt="" class="remove-item">
                      </div>
                   </div>
@@ -43,12 +43,13 @@
                      </div>
                      <div class="col-md-5 center-item">
                         <div class="input-group number-spinner">
-                           <button class="btn btn-default"><i class="fas fa-minus"></i></button>
+                           <button class="btn btn-default" id="remove-product-second"><i
+                                 class="fas fa-minus"></i></button>
                            <input type="text" class="form-control text-center" value="1">
-                           <button class="btn btn-default"><i class="fas fa-plus"></i></button>
+                           <button class="btn btn-default" id="add-product-second"><i class="fas fa-plus"></i></button>
 
                         </div>
-                        <h5>$59</h5>
+                        <h5>$ <span id="product2-price">59</span> </h5>
                         <img src="images/remove.png" alt="" class="remove-item">
                      </div>
                   </div>
@@ -77,7 +78,39 @@
          </div>
       </div>
    </section>
-   <script src="./index.js"></script>
+   <script>
+      const removeFirstProduct = document.getElementById('remove-product');
+      const product1Price = document.getElementById('product1-price');
+      const quantity = document.getElementById('first-product-quantity');
+      removeFirstProduct.addEventListener('click', function () {
+         let productPriceParseNumber = parseInt(product1Price.innerText);
+         let quantityParseNumber = parseInt(quantity.value);
+         if (quantityParseNumber > 1) {
+            quantity.value = quantityParseNumber - 1;
+            let singlePrice = productPriceParseNumber / quantityParseNumber;
+            product1Price.innerText = singlePrice * quantity.value;
+         }
+      });
+
+      quantity.addEventListener('keypress', function (e) {
+        console.log(quantity.value);
+        
+         
+      });
+
+      const addFirstProduct = document.getElementById('add-product');
+      addFirstProduct.addEventListener('click', function () {
+         let productPriceParseNumber = parseInt(product1Price.innerText);
+         let quantityParseNumber = parseInt(quantity.value);
+
+         quantity.value = quantityParseNumber + 1;
+         let singlePrice = productPriceParseNumber / quantityParseNumber;
+         product1Price.innerText = singlePrice * quantity.value;
+      });
+      // second card
+      const removeSecondProduct = document.getElementById('remove-product-second');
+      const addSecondProduct = document.getElementById('add-product-second');
+   </script>
 </body>
 
 </html>

@@ -26,7 +26,7 @@
                      <div class="col-md-5 center-item">
                         <div class="input-group number-spinner">
                            <button class="btn btn-default" id="remove-product"><i class="fas fa-minus"></i></button>
-                           <input type="number" id="first-product-quantity" class="form-control text-center" value="1">
+                           <input type="text" id="first-product-quantity" class="form-control text-center" value="1">
                            <button class="btn btn-default" id="add-product"><i class="fas fa-plus"></i></button>
                         </div>
                         <h5>$ <span id="product1-price">1219</span> </h5>
@@ -45,7 +45,7 @@
                         <div class="input-group number-spinner">
                            <button class="btn btn-default" id="remove-product-second"><i
                                  class="fas fa-minus"></i></button>
-                           <input type="text" class="form-control text-center" value="1">
+                           <input type="text" id="second-product-quantity" class="form-control text-center" value="1">
                            <button class="btn btn-default" id="add-product-second"><i class="fas fa-plus"></i></button>
 
                         </div>
@@ -54,6 +54,20 @@
                      </div>
                   </div>
                </div>
+               <!-- cupone code -->
+               <div class="cart-item">
+                     <div class="row">
+                        <div class="col-md-7 center-item mx-auto">
+                           <h5>Do you have a copon? Get 15% discount!</h5>
+                        </div>
+                        <div class="col-md-5 d-flex justify-content-between align-items-center">
+                           <!-- <div class="input-group"> -->
+                              <input type="text" class="form-control cupon-code text-center" value="WEAREHERO">
+                           <!-- </div> -->
+                           <button type="button" id="cupon-apply" class="btn btn-info  check-out">Apply</button>
+                        </div>
+                     </div>
+                  </div>
 
                <div class="cart-item">
                   <div class="row">
@@ -65,12 +79,13 @@
                      </div>
 
                      <div class="col-md-4 status">
-                        <h5>$1,278</h5>
+                        <h5>$ <span id="sub-total-price">1,278</span> </h5>
                         <h5>$0</h5>
-                        <h5>$1,278</h5>
+                        <h5 >$ <span id="total-price">1,278</span> </h5>
                      </div>
                   </div>
                </div>
+
                <div class="col-md-12 pt-4 pb-4">
                   <button type="button" class="btn btn-success check-out">Check Out</button>
                </div>
@@ -79,8 +94,10 @@
       </div>
    </section>
    <script>
+      //first product
       const removeFirstProduct = document.getElementById('remove-product');
       const product1Price = document.getElementById('product1-price');
+      const firstproductPriceNumber = parseInt(product1Price.innerText)
       const quantity = document.getElementById('first-product-quantity');
       removeFirstProduct.addEventListener('click', function () {
          let productPriceParseNumber = parseInt(product1Price.innerText);
@@ -89,12 +106,21 @@
             quantity.value = quantityParseNumber - 1;
             let singlePrice = productPriceParseNumber / quantityParseNumber;
             product1Price.innerText = singlePrice * quantity.value;
-         }
+         } 
+         subTotal()
       });
 
-      quantity.addEventListener('keypress', function (e) {
-        console.log(quantity.value);
+      quantity.addEventListener('keyup', function () {
+         let productPriceParseNumber = parseInt(product1Price.innerText);
+         let quantityParseNumber = parseInt(quantity.value);
+
+         // if user input 0
+         if (quantityParseNumber == 0 || isNaN(quantityParseNumber)  ) {
+            quantity.value = 1;
+         }
         
+         product1Price.innerText = 1219 * parseInt(quantity.value);
+         subTotal()
          
       });
 
@@ -105,11 +131,67 @@
 
          quantity.value = quantityParseNumber + 1;
          let singlePrice = productPriceParseNumber / quantityParseNumber;
-         product1Price.innerText = singlePrice * quantity.value;
+         product1Price.innerText = singlePrice * parseInt(quantity.value);
+         subTotal()
       });
+
       // second card
       const removeSecondProduct = document.getElementById('remove-product-second');
+      const product2Price = document.getElementById('product2-price');
+      const secondProductPriceNumber = parseInt(product2Price.innerText)
+      const quantity2 = document.getElementById('second-product-quantity');
+
+      // remove second product
+      removeSecondProduct.addEventListener('click',function(){
+         let productPriceParseNumber = parseInt(product2Price.innerText);
+         let quantityParseNumber = parseInt(quantity2.value);
+         if (quantityParseNumber > 1 ) {
+            quantity2.value = quantityParseNumber - 1;
+            let singlePrice = productPriceParseNumber / quantityParseNumber;
+            product2Price.innerText = singlePrice * quantity2.value;
+         }
+         subTotal()
+      })
+
+      //quantity 2 keboard event
+      quantity2.addEventListener('keyup', function () {
+         let productPriceParseNumber = parseInt(product2Price.innerText);
+         let quantityParseNumber = parseInt(quantity2.value) ;
+
+
+
+         // if user input 0, or invaid data
+         if (quantityParseNumber == 0  || isNaN(quantityParseNumber)) {
+            quantity2.value = 1;
+         }
+
+         product2Price.innerText = 59 * parseInt(quantity2.value);
+         subTotal()
+         
+      });
+
+      
+
+      // add product
       const addSecondProduct = document.getElementById('add-product-second');
+      addSecondProduct.addEventListener('click',function() {
+         let productPriceParseNumber = parseInt(product2Price.innerText);
+         let quantityParseNumber = parseInt(quantity2.value);
+
+         quantity2.value = quantityParseNumber + 1;
+         let singlePrice = productPriceParseNumber / quantityParseNumber;
+         product2Price.innerText = singlePrice * quantity2.value;
+         subTotal()
+      })
+
+      function subTotal() {
+         const subTotal = document.getElementById('sub-total-price')
+         const totalPrice = document.getElementById('total-price')
+         const total = parseInt(product1Price.innerText) + parseInt(product2Price.innerText);
+         subTotal.innerText = total;
+         totalPrice.innerText = total;
+      }
+
    </script>
 </body>
 

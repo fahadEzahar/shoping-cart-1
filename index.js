@@ -53,7 +53,7 @@ function removeProductAndUpdatePrice(price, quantitys) {
     if (productQuanty > 1) {
         quantitys.value = productQuanty - 1;
         let singlePrice = priceNumber / productQuanty;
-        let total = singlePrice * quantitys.value;
+        let total = singlePrice * parseInt(quantitys.value);
         return total;
     }
     return priceNumber;
@@ -65,19 +65,21 @@ function addProductAndPriceUpdate(price, quantitys) {
     let productQuanty = parseInt(quantitys.value);
     quantitys.value = productQuanty + 1;
     let singlePrice = priceNumber / productQuanty;
-    const total = singlePrice * quantitys.value;
+    let total = singlePrice * parseInt(quantitys.value);
     return total;
 }
 
 // input keyup handler
 function keyupHandler(quantitys, defaultPrice) {
+    console.log(quantitys, defaultPrice);
+    
     let productQuanty = parseInt(quantitys.value);
     if (productQuanty == 0 || isNaN(productQuanty)) {
         quantitys.value = 1;
-        const total = defaultPrice * quantitys.value;
+        let total = defaultPrice * parseInt(quantitys.value);
         return total;
     }
-    const total = defaultPrice * quantitys.value;
+    let total = defaultPrice * parseInt(quantitys.value);
     return total;
 }
 

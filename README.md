@@ -1,3 +1,9 @@
-`this is the third assignment programming hero complete web development courese`
-# shoping cart with vanila js
-## live link https://manik89.github.io/shoping-cart/index.html
+<p align="center">
+  <a href="https://manik-roy.github.io/shoping-cart/">
+    <img alt="manikroy" src="https://i.ibb.co/0GNrgFM/image.png" width="750px" />
+  </a>
+</p>
+<h1 align="center">
+  Shoping cart with vanila js
+</h1>
+
